@@ -16,8 +16,10 @@ func _ready():
 func _process(delta):
 	# If user wants to jump, start the MockAirTimer and change the movement state to airborne
 	if Input.is_action_just_pressed("Jump") and movement_state != MovementState.AIRBORNE:
+		$JumpSound.play() # the new line
 		$MockAirTimer.start()
 		movement_state = MovementState.AIRBORNE
+		
 
 	if Input.is_action_pressed("Run right"):
 		orientation = Orientation.RIGHT

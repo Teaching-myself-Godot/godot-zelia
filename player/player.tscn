@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://bu64mps4ovkil"]
+[gd_scene load_steps=25 format=3 uid="uid://bu64mps4ovkil"]
 
 [ext_resource type="Texture2D" uid="uid://2rm1cjr8gjll" path="res://player/images/cast-1.png" id="1_31c4n"]
 [ext_resource type="Script" path="res://player/player.gd" id="1_tyhnt"]
@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://cd522k5rvyeym" path="res://player/images/run-3.png" id="18_ku4us"]
 [ext_resource type="Texture2D" uid="uid://c7okrjovnuaid" path="res://player/images/run-4.png" id="19_4vg3f"]
 [ext_resource type="Texture2D" uid="uid://bdc5v1mq8668h" path="res://player/images/run-5.png" id="20_ccdjx"]
+[ext_resource type="AudioStream" uid="uid://qf3kpgghtjkc" path="res://player/sounds/jump-sound.wav" id="22_t6trb"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fpknj"]
 animations = [{
@@ -143,5 +144,8 @@ shape = SubResource("CapsuleShape2D_kk1m4")
 [node name="MockAirTimer" type="Timer" parent="."]
 wait_time = 0.7
 one_shot = true
+
+[node name="JumpSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("22_t6trb")
 
 [connection signal="timeout" from="MockAirTimer" to="." method="_on_mock_air_timer_timeout"]
