@@ -139,3 +139,9 @@ animation = &"running"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_kk1m4")
+
+[node name="MockAirTimer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[connection signal="timeout" from="MockAirTimer" to="." method="_on_mock_air_timer_timeout"]
