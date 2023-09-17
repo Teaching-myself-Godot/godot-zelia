@@ -1,4 +1,4 @@
-extends Area2D
+extends RigidBody2D
 
 enum Orientation   { LEFT, RIGHT }
 enum MovementState { IDLE, RUNNING, AIRBORNE }
