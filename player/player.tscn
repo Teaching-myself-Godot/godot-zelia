@@ -128,14 +128,15 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kk1m4"]
 radius = 6.0
 
-[node name="Player" type="Area2D"]
+[node name="Player" type="RigidBody2D"]
 position = Vector2(160, 90)
+lock_rotation = true
 script = ExtResource("1_tyhnt")
 metadata/_edit_group_ = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpknj")
-animation = &"running"
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, 0)
