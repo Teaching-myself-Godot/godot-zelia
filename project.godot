@@ -11,8 +11,15 @@ config_version=5
 [application]
 
 config/name="Godot-zelia"
+run/main_scene="res://player/player.tscn"
 config/features=PackedStringArray("4.1", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=320
+window/size/viewport_height=180
+window/stretch/mode="canvas_items"
 
 [rendering]
 
