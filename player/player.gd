@@ -26,6 +26,9 @@ func _physics_process(delta):
 	# Apply the gravity.
 	velocity.y += gravity * delta
 
+	if Input.is_action_just_pressed("Mouse click"):
+		var vec = get_global_mouse_position() - position
+		print(rad_to_deg(vec.normalized().angle()))
 	# Update the MovementState based on the collisions observed
 	if movement_state == MovementState.AIRBORNE:
 		# If she's airborne right now
