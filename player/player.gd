@@ -40,7 +40,8 @@ func _physics_process(delta):
 			# ... and left
 			orientation = Orientation.LEFT
 			velocity.x = -speed
-		# But you cannot let her remove x momentum
+		else:
+			velocity.x = 0
 	else:
 		# Else we are not airborne right now
 		if Input.is_action_pressed("Run right"):
