@@ -126,7 +126,7 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_kk1m4"]
-radius = 6.0
+radius = 5.0
 height = 28.0
 
 [node name="Player" type="CharacterBody2D"]
@@ -138,14 +138,9 @@ sprite_frames = SubResource("SpriteFrames_fpknj")
 animation = &"jumping"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, 0)
 shape = SubResource("CapsuleShape2D_kk1m4")
-
-[node name="MockAirTimer" type="Timer" parent="."]
-wait_time = 0.1
-one_shot = true
 
 [node name="JumpSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("22_t6trb")
 
-[connection signal="timeout" from="MockAirTimer" to="." method="_on_mock_air_timer_timeout"]
+[node name="Camera2D" type="Camera2D" parent="."]
