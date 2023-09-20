@@ -27,20 +27,35 @@
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_31c4n")
+"texture": ExtResource("3_y5vui")
+}],
+"loop": true,
+"name": &"casting_diag_up",
+"speed": 5.0
 }, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_31c4n")
+}],
+"loop": true,
+"name": &"casting_down",
+"speed": 15.0
+}, {
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_kbwpm")
+}],
+"loop": true,
+"name": &"casting_forward",
+"speed": 5.0
 }, {
-"duration": 1.0,
-"texture": ExtResource("3_y5vui")
-}, {
+"frames": [{
 "duration": 1.0,
 "texture": ExtResource("4_s3g7l")
 }],
 "loop": true,
-"name": &"casting",
-"speed": 15.0
+"name": &"casting_up",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -135,7 +150,7 @@ script = ExtResource("1_tyhnt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpknj")
-animation = &"jumping"
+animation = &"casting_down"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_kk1m4")
