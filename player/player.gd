@@ -44,11 +44,14 @@ func _physics_process(delta):
 	velocity.y += gravity * delta
 
 	# Handle casting with left mouse button
-	if Input.is_action_pressed("Fireball button mouse"):
+	if Input.is_action_pressed("Fireball button"):
 		movement_state = MovementState.CASTING
 		# base the angle of casting on the position of the mouse
 		# relative to Zelia
-		cast_angle = (get_global_mouse_position() - position).normalized().angle()
+		if Input.is_action_pressed("Left mouse button"):
+			cast_angle = (get_global_mouse_position() - position).normalized().angle()
+		else:
+			cast_angle = Vector2(Input.get_joy_axis(0, JOY_AXIS_LEFT_X), Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)).normalized().angle()
 	elif is_on_floor():
 		movement_state = MovementState.IDLE
 	else:
