@@ -16,10 +16,92 @@ var gravity    = ProjectSettings.get_setting("physics/2d/default_gravity")
 var speed      = 170.0
 var jump_speed = -400.0
 
-func _ready():
-	movement_state = MovementState.IDLE
-	orientation    = Orientation.RIGHT
-	$AnimatedSprite2D.play()
+
+# Vector of L-stick
+func get_l_stick_axis_vec() -> Vector2:
+	return Vector2(
+		Input.get_joy_axis(0, JOY_AXIS_LEFT_X), 
+		Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)
+	)
+
+# Vector from player to mouse position
+func get_mouse_vec_to_player() -> Vector2:
+	return get_global_mouse_position() - position
+
+# base the angle of casting on the position of the mouse relative to Zelia
+func set_cast_angle():
+	if Input.is_action_pressed("Left mouse button"):
+		cast_angle = get_mouse_vec_to_player().normalized().angle()
+	else:
+		cast_angle = get_l_stick_axis_vec().normalized().angle()
+
+# base orientation on the angle of casting
+func set_orientation_by_cast_angle():
+	if cast_angle > -(PI * 0.5) and cast_angle < PI * 0.5:
+		orientation = Orientation.RIGHT
+	else:
+		orientation = Orientation.LEFT
+
+# Set initial movement state
+func set_movement_state():
+	if Input.is_action_pressed("Fireball button"):
+		movement_state = MovementState.CASTING
+		set_cast_angle()
+	elif is_on_floor():
+		movement_state = MovementState.IDLE
+	else:
+		movement_state = MovementState.AIRBORNE
+
+## Handlers for:
+# Updating movement state, velocity and orientation based on the combo of
+# her current movement state, pressed inputs and environmental factors
+
+# She cannot run or move on x-axis in the air while casting
+# but she _can_ turn around
+func handle_casting():
+	velocity.x = 0
+	set_orientation_by_cast_angle()
+
+# Handles landing, orientation and x-movement in the air
+func handle_airborne():
+	if is_on_floor():
+		movement_state = MovementState.IDLE
+	elif Input.is_action_pressed("Run right"):
+		orientation = Orientation.RIGHT
+		velocity.x = speed
+	elif Input.is_action_pressed("Run left"):
+		orientation = Orientation.LEFT
+		velocity.x = -speed
+	else:
+		velocity.x = 0
+
+# handle actions on the floor
+func handle_running():
+	if Input.is_action_pressed("Run right"):
+		# so we run right when run right is pressed
+		orientation = Orientation.RIGHT
+		movement_state = MovementState.RUNNING
+		velocity.x = speed
+	elif Input.is_action_pressed("Run left"):
+		# .. and left ...
+		orientation = Orientation.LEFT
+		movement_state = MovementState.RUNNING
+		velocity.x = -speed
+	else:
+		# and stand idle if no x-movement button is pressed
+		velocity.x = 0
+		movement_state = MovementState.IDLE  
+
+# Handle Jump, only to be invoked when on the floor and not in airborne state
+func handle_jumping():
+	if Input.is_action_just_pressed("Jump") and is_on_floor():
+		$JumpSound.play()
+		movement_state = MovementState.AIRBORNE
+		velocity.y = jump_speed
+## /Handlers
+
+## Functions to set the correct sprite
+#
 
 # Determine the casting sprite name based on the cast_angle
 func get_casting_sprite(deg) -> String:
@@ -39,73 +121,8 @@ func get_casting_sprite(deg) -> String:
 	else:
 		return "casting_forward"
 
-func _physics_process(delta):
-	# Apply the gravity.
-	velocity.y += gravity * delta
-
-	# Handle casting with left mouse button
-	if Input.is_action_pressed("Fireball button"):
-		movement_state = MovementState.CASTING
-		# base the angle of casting on the position of the mouse
-		# relative to Zelia
-		if Input.is_action_pressed("Left mouse button"):
-			cast_angle = (get_global_mouse_position() - position).normalized().angle()
-		else:
-			cast_angle = Vector2(Input.get_joy_axis(0, JOY_AXIS_LEFT_X), Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)).normalized().angle()
-	elif is_on_floor():
-		movement_state = MovementState.IDLE
-	else:
-		movement_state = MovementState.AIRBORNE
-
-	# Update movement state, velocity and orientation based on the combo of
-	# her current movement state and environmental factors
-	if movement_state == MovementState.CASTING:
-		# She cannot run or move on x-axis in the air while casting
-		velocity.x = 0
-		# base her orientation on the angle of casting as well
-		if cast_angle > -(PI * 0.5) and cast_angle < PI * 0.5:
-			orientation = Orientation.RIGHT
-		else:
-			orientation = Orientation.LEFT
-	elif movement_state == MovementState.AIRBORNE:
-		# If she's airborne right now
-		if is_on_floor():
-			# .. and hits the floor, she's idle
-			movement_state = MovementState.IDLE
-		elif Input.is_action_pressed("Run right"):
-			# Else you can still move her right
-			orientation = Orientation.RIGHT
-			velocity.x = speed
-		elif Input.is_action_pressed("Run left"):
-			# ... and left
-			orientation = Orientation.LEFT
-			velocity.x = -speed
-		else:
-			velocity.x = 0
-	else:
-		# Else we are neither casting nor airborne right now
-		if Input.is_action_pressed("Run right"):
-			# so we run right when run right is pressed
-			orientation = Orientation.RIGHT
-			movement_state = MovementState.RUNNING
-			velocity.x = speed
-		elif Input.is_action_pressed("Run left"):
-			# .. and left ...
-			orientation = Orientation.LEFT
-			movement_state = MovementState.RUNNING
-			velocity.x = -speed
-		else:
-			# and stand idle if no x-movement button is pressed
-			velocity.x = 0
-			movement_state = MovementState.IDLE  
-
-		# Handle Jump, only when on the floor
-		if Input.is_action_just_pressed("Jump") and is_on_floor():
-			$JumpSound.play()
-			movement_state = MovementState.AIRBORNE
-			velocity.y = jump_speed
-	
-	# Determine sprite based on movement state
+# Determine sprite based on movement state
+func set_current_sprite():
 	match (movement_state):
 		MovementState.RUNNING:
 			$AnimatedSprite2D.animation = "running"
@@ -118,11 +135,40 @@ func _physics_process(delta):
 		_: # MovementState.IDLE
 			$AnimatedSprite2D.animation = "idle"
 
-	# Neither had this
+# determine sprite based on orientation
+func flip_current_sprite():
 	if orientation == Orientation.LEFT:
 		$AnimatedSprite2D.flip_h = true
 	else:
 		$AnimatedSprite2D.flip_h = false
+
+## /Sprite funcs
+
+func _ready():
+	movement_state = MovementState.IDLE
+	orientation    = Orientation.RIGHT
+	$AnimatedSprite2D.play()
+
+func _physics_process(delta):
+	# Apply the gravity.
+	velocity.y += gravity * delta
+
+	# set initial movement state
+	set_movement_state()
+
+	# Update movement state, velocity and orientation based on the combo of
+	# her current movement state and environmental factors
+	if movement_state == MovementState.CASTING:
+		handle_casting()
+	elif movement_state == MovementState.AIRBORNE:
+		handle_airborne()
+	else:
+		handle_running()
+		handle_jumping()
+
+	# Set current sprite and flip to correct orientation
+	set_current_sprite()
+	flip_current_sprite()
 
 	# Apply 2d physics engine's movement 
 	move_and_slide()
