@@ -1,12 +1,13 @@
 extends CharacterBody2D
 
 enum Orientation   { LEFT, RIGHT }
+# add movement state for casting
 enum MovementState { IDLE, RUNNING, AIRBORNE, CASTING }
 
 var movement_state : int
 var orientation    : int
 
-# and this the exact cast angle
+# the exact cast angle in radians
 var cast_angle     : float
 
 # Get the gravity from the project settings so you can sync with rigid body nodes.
