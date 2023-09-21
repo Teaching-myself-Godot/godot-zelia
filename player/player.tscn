@@ -159,3 +159,9 @@ shape = SubResource("CapsuleShape2D_kk1m4")
 stream = ExtResource("22_t6trb")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="FireballIntervalTimer" type="Timer" parent="."]
+wait_time = 0.064
+autostart = true
+
+[connection signal="timeout" from="FireballIntervalTimer" to="." method="_on_fireball_interval_timer_timeout"]

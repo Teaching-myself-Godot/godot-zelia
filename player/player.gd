@@ -16,6 +16,11 @@ var gravity    = ProjectSettings.get_setting("physics/2d/default_gravity")
 var speed      = 170.0
 var jump_speed = -400.0
 
+# Cast fireball signal declaration
+signal cast_fire_magic(fireball, direction, location)
+
+# Fireball class
+var Fireball = preload("res://projectiles/fireball/Fireball.tscn")
 
 # Vector of L-stick
 func get_l_stick_axis_vec() -> Vector2:
@@ -61,6 +66,7 @@ func set_movement_state():
 func handle_casting():
 	velocity.x = 0
 	set_orientation_by_cast_angle()
+
 
 # Handles landing, orientation and x-movement in the air
 func handle_airborne():
@@ -173,3 +179,10 @@ func _physics_process(delta):
 	# Apply 2d physics engine's movement 
 	move_and_slide()
 
+
+
+func _on_fireball_interval_timer_timeout():
+	if movement_state == MovementState.CASTING:
+		# elegant, yet no fit:
+		var origin = position + Vector2(10, 0).rotated(cast_angle) + Vector2(0, 2)
+		cast_fire_magic.emit(Fireball, cast_angle, origin)

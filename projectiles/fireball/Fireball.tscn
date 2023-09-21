@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://8r3vn0khhmme"]
+
+[ext_resource type="Texture2D" uid="uid://dpaswqnc52ch0" path="res://projectiles/fireball/fire-area-r.png" id="1_3qorx"]
+[ext_resource type="Script" path="res://projectiles/fireball/Fireball.gd" id="1_xcovs"]
+[ext_resource type="Texture2D" uid="uid://c22klym67jhre" path="res://projectiles/fireball/fire-dissipate-r-1.png" id="2_5bt4h"]
+[ext_resource type="Texture2D" uid="uid://dn7txsbvmx5em" path="res://projectiles/fireball/fire-dissipate-r-2.png" id="3_qerjc"]
+[ext_resource type="Texture2D" uid="uid://b6kdepagouwxt" path="res://projectiles/fireball/fire-dissipate-r-3.png" id="4_r5ct7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4408p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3qorx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_5bt4h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qerjc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_r5ct7")
+}],
+"loop": true,
+"name": &"dissipate",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_aaa0d"]
+radius = 4.0
+
+[node name="Fireball" type="Area2D"]
+show_behind_parent = true
+position = Vector2(18, 10)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_xcovs")
+metadata/_edit_group_ = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4408p")
+animation = &"dissipate"
+frame_progress = 0.323137
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+shape = SubResource("CircleShape2D_aaa0d")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1, 1.19209e-07)
+scale = Vector2(1, 0.6)
+
+[node name="DissipateTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="DissipateTimer" to="." method="_on_dissipate_timer_timeout"]

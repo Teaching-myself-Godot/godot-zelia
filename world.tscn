@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://7ccsjx3fean8"]
+[gd_scene load_steps=11 format=3 uid="uid://7ccsjx3fean8"]
 
 [ext_resource type="Texture2D" uid="uid://cd163dlcpxdpl" path="res://surface_maps/grass-and-dirt/1.png" id="1_4u2ns"]
 [ext_resource type="Texture2D" uid="uid://b1bem3hrbt5do" path="res://surface_maps/stonewall/1.png" id="2_pdfc8"]
 [ext_resource type="PackedScene" uid="uid://bu64mps4ovkil" path="res://player/player.tscn" id="2_y13bk"]
 [ext_resource type="Texture2D" uid="uid://bs2oogwdwj73j" path="res://surface_maps/tree-trunk/1.png" id="3_r77rj"]
 [ext_resource type="Script" path="res://world.gd" id="4_aygfq"]
+[ext_resource type="PackedScene" uid="uid://8r3vn0khhmme" path="res://projectiles/fireball/Fireball.tscn" id="6_ymt3l"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plf1x"]
 resource_name = "grass-and-dirt"
@@ -411,7 +412,8 @@ texture_region_size = Vector2i(15, 15)
 
 [sub_resource type="TileSet" id="TileSet_01qsw"]
 tile_size = Vector2i(15, 15)
-physics_layer_0/collision_layer = 1
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
 terrain_set_0/mode = 2
 terrain_set_0/terrain_0/name = "Grass and Dirt"
 terrain_set_0/terrain_0/color = Color(0.666667, 0.945098, 0.639216, 1)
@@ -424,11 +426,20 @@ sources/1 = SubResource("TileSetAtlasSource_w5vmf")
 sources/2 = SubResource("TileSetAtlasSource_huli6")
 
 [node name="World" type="TileMap"]
+z_index = 1
 tile_set = SubResource("TileSet_01qsw")
 cell_quadrant_size = 15
 format = 2
 layer_0/tile_data = PackedInt32Array(524296, 262144, 2, 458760, 65536, 65537, 393224, 327680, 0, 524295, 262144, 2, 458759, 65536, 65537, 393223, 65536, 65537, 524294, 262144, 2, 458758, 65536, 65537, 393222, 65536, 65537, 524293, 196608, 2, 458757, 65536, 65537, 393221, 262144, 0, 458762, 327680, 0, 458761, 262144, 0, 589834, 196608, 2, 524298, 65536, 65537, 524297, 262144, 2, 524300, 262144, 0, 589838, 262144, 2, 524302, 327680, 1, 458766, 65536, 0, 262159, 131072, 3, 262158, 65536, 3, 262157, 65536, 3, 262156, 0, 3, 458756, 262144, 2, 393220, 262144, 0, 458755, 262144, 2, 393219, 262144, 0, 458754, 262144, 2, 393218, 262144, 0, 458753, 262144, 2, 393217, 65536, 65537, 458752, 196608, 2, 393216, 196608, 1, 327681, 327680, 1, 262145, 327680, 1, 196609, 327680, 1, 131073, 327680, 1, 65537, 327680, 1, 1, 262144, 0, 327680, 196608, 1, 262144, 196608, 1, 196608, 196608, 1, 131072, 196608, 1, 65536, 196608, 1, 0, 196608, 0, 5, 131072, 3, 4, 65536, 3, 3, 65536, 3, 2, 65536, 3, 15, 65536, 3, 14, 65536, 3, 13, 65536, 3, 12, 65536, 3, 11, 65536, 3, 10, 0, 3, 589835, 262144, 2, 524299, 262144, 0, 589837, 262144, 2, 524301, 262144, 0, 589836, 262144, 2, 327687, 327680, 1, 262151, 327680, 0, 327686, 196608, 1, 262150, 196608, 0, 589842, 327680, 2, 524306, 65536, 1, 458770, 65536, 1, 393234, 65536, 1, 327698, 65536, 1, 262162, 65536, 1, 196626, 196608, 1, 131090, 196608, 1, 65554, 65536, 1, 589841, 65536, 3, 589840, 65536, 3, 589839, 65536, 3, -65523, 196609, 2, -131059, 196609, 0, -65522, 327681, 2, -131058, 327681, 0, -131069, 65538, 1, -196605, 65538, 65537, -65533, 262146, 2, -196607, 2, 3, -196602, 65538, 3, -196603, 65538, 3, -262141, 65538, 1, -327677, 65538, 1, -196606, 65538, 3, -196604, 65538, 3, -65534, 196610, 0, -65532, 327682, 0, -393213, 65538, 1, -458749, 65538, 65537, -524285, 65538, 0, -458751, 2, 3, -458750, 65538, 3, -458748, 65538, 3, -458747, 131074, 3, -196601, 65538, 3, -196600, 131074, 3, 16, 65536, 3, 17, 65536, 3, 18, 327680, 0, 19, 65538, 1, -65517, 65538, 65537, -131053, 65538, 1, -196589, 65538, 1, -262125, 327682, 1, -327661, 65538, 0, -65518, 196610, 0, 65555, 65538, 2, 131091, 65536, 65537, 196627, 262144, 2, 196628, 327680, 2, 131092, 327680, 1, 65556, 65536, 1, 20, 65536, 0, -65516, 327682, 0, -262126, 65538, 3, -262127, 65538, 3, -262128, 2, 3)
 script = ExtResource("4_aygfq")
 
+[node name="Fireball" parent="." instance=ExtResource("6_ymt3l")]
+visible = false
+z_as_relative = false
+position = Vector2(263, 118)
+
 [node name="Player" parent="." instance=ExtResource("2_y13bk")]
+z_index = 1
 position = Vector2(245, 108)
+
+[connection signal="cast_fire_magic" from="Player" to="." method="_on_player_cast_fire_magic"]
