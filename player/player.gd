@@ -104,6 +104,17 @@ func handle_jumping():
 		$JumpSound.play()
 		movement_state = MovementState.AIRBORNE
 		velocity.y = jump_speed
+
+# Main movement state handler entry point
+func handle_movement_state():
+	if movement_state == MovementState.CASTING:
+		handle_casting()
+	elif movement_state == MovementState.AIRBORNE:
+		handle_airborne()
+	else:
+		handle_running()
+		handle_jumping()
+
 ## /Handlers
 
 ## Functions to set the correct sprite
@@ -162,15 +173,8 @@ func _physics_process(delta):
 	# set initial movement state
 	set_movement_state()
 
-	# Update movement state, velocity and orientation based on the combo of
-	# her current movement state and environmental factors
-	if movement_state == MovementState.CASTING:
-		handle_casting()
-	elif movement_state == MovementState.AIRBORNE:
-		handle_airborne()
-	else:
-		handle_running()
-		handle_jumping()
+	# handle current and next movement state
+	handle_movement_state()
 
 	# Set current sprite and flip to correct orientation
 	set_current_sprite()
