@@ -1,11 +1,13 @@
 extends CharacterBody2D
 
 enum Orientation   { LEFT, RIGHT }
-enum MovementState { IDLE, RUNNING, AIRBORNE }
+enum MovementState { IDLE, RUNNING, AIRBORNE, CASTING }
 
 # I removed the exports for now, no debugging needed at the moment
 var movement_state : int
 var orientation    : int
+
+@export var cast_angle : float
 
 # Get the gravity from the project settings so you can sync with rigid body nodes.
 # NOTE: I changed the default from 980 to 1300, Zelia jumps high yet falls fast.
@@ -58,6 +60,16 @@ func _physics_process(delta):
 			# and stand idle if no x-movement button is pressed
 			velocity.x = 0
 			movement_state = MovementState.IDLE  
+
+	if Input.is_action_pressed("Fireball button"):
+		movement_state = MovementState.CASTING
+		# base the angle of casting on the position of the mouse
+		# relative to Zelia or on the L-stick
+		if Input.is_action_pressed("Left mouse button"):
+			cast_angle = (get_global_mouse_position() - position).normalized().angle()
+		else:
+			cast_angle = Vector2(Input.get_joy_axis(0, JOY_AXIS_LEFT_X), Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)).normalized().angle()
+
 
 	# Handle Jump, only when on the floor
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
