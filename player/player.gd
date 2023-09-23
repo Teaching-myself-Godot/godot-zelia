@@ -69,7 +69,11 @@ func _physics_process(delta):
 			cast_angle = (get_global_mouse_position() - position).normalized().angle()
 		else:
 			cast_angle = Vector2(Input.get_joy_axis(0, JOY_AXIS_LEFT_X), Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)).normalized().angle()
-
+		# base her orientation on the angle of casting as well
+		if cast_angle > -(PI * 0.5) and cast_angle < PI * 0.5:
+			orientation = Orientation.RIGHT
+		else:
+			orientation = Orientation.LEFT
 
 	# Handle Jump, only when on the floor
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
