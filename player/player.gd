@@ -25,11 +25,33 @@ func _ready():
 
 # Changed _process to _physics_process
 func _physics_process(delta):
-	# Apply the gravity.
 	velocity.y += gravity * delta
 
-	# Update the MovementState based on the collisions observed
-	if movement_state == MovementState.AIRBORNE:
+	# Set initial movement state
+	if Input.is_action_pressed("Fireball button"):
+		movement_state = MovementState.CASTING
+		# base the angle of casting on the position of the mouse
+		# relative to Zelia or on the L-stick
+		if Input.is_action_pressed("Left mouse button"):
+			cast_angle = (get_global_mouse_position() - position).normalized().angle()
+		else:
+			cast_angle = Vector2(Input.get_joy_axis(0, JOY_AXIS_LEFT_X), Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)).normalized().angle()
+	elif is_on_floor():
+		movement_state = MovementState.IDLE
+	else:
+		movement_state = MovementState.AIRBORNE
+
+	# Update movement state, velocity and orientation based on the combo of
+	# her current movement state and environmental factors
+	if movement_state == MovementState.CASTING:
+		# She cannot run or move on x-axis in the air while casting
+		velocity.x = 0
+		# base her orientation on the angle of casting as well
+		if cast_angle > -(PI * 0.5) and cast_angle < PI * 0.5:
+			orientation = Orientation.RIGHT
+		else:
+			orientation = Orientation.LEFT
+	elif movement_state == MovementState.AIRBORNE:
 		# If she's airborne right now
 		if is_on_floor():
 			# .. and hits the floor, she's idle
@@ -45,7 +67,7 @@ func _physics_process(delta):
 		else:
 			velocity.x = 0
 	else:
-		# Else we are not airborne right now
+		# Else we are neither casting nor airborne right now
 		if Input.is_action_pressed("Run right"):
 			# so we run right when run right is pressed
 			orientation = Orientation.RIGHT
@@ -61,27 +83,13 @@ func _physics_process(delta):
 			velocity.x = 0
 			movement_state = MovementState.IDLE  
 
-	if Input.is_action_pressed("Fireball button"):
-		movement_state = MovementState.CASTING
-		# base the angle of casting on the position of the mouse
-		# relative to Zelia or on the L-stick
-		if Input.is_action_pressed("Left mouse button"):
-			cast_angle = (get_global_mouse_position() - position).normalized().angle()
-		else:
-			cast_angle = Vector2(Input.get_joy_axis(0, JOY_AXIS_LEFT_X), Input.get_joy_axis(0, JOY_AXIS_LEFT_Y)).normalized().angle()
-		# base her orientation on the angle of casting as well
-		if cast_angle > -(PI * 0.5) and cast_angle < PI * 0.5:
-			orientation = Orientation.RIGHT
-		else:
-			orientation = Orientation.LEFT
-
-	# Handle Jump, only when on the floor
-	if Input.is_action_just_pressed("Jump") and is_on_floor():
-		$JumpSound.play()
-		movement_state = MovementState.AIRBORNE
-		velocity.y = jump_speed
+		# Handle Jump, only when on the floor
+		if Input.is_action_just_pressed("Jump") and is_on_floor():
+			$JumpSound.play()
+			movement_state = MovementState.AIRBORNE
+			velocity.y = jump_speed
 	
-	# This code has not changed
+	# Determine sprite based on movement state
 	match (movement_state):
 		MovementState.RUNNING:
 			$AnimatedSprite2D.animation = "running"
@@ -97,6 +105,6 @@ func _physics_process(delta):
 	else:
 		$AnimatedSprite2D.flip_h = false
 
-	# Yet this is new
+	# Apply 2d physics engine's movement 
 	move_and_slide()
 
