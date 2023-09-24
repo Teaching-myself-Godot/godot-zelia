@@ -164,3 +164,6 @@ func _physics_process(delta):
 	# Apply 2d physics engine's movement 
 	move_and_slide()
 
+func _on_fireball_interval_timer_timeout():
+	if movement_state == MovementState.CASTING:
+		print("pow!")
