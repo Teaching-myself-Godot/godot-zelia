@@ -17,6 +17,12 @@ var speed      = 120.0
 # Funnily the original game had jump_speed set to -4.0 and gravity to 13.0
 var jump_speed = -400.0
 
+# Preload the Fireball class, used to identify it in cast_projectile
+var Fireball = preload("res://projectiles/fireball/fireball.tscn")
+
+# Cast a projectile spell (like Fireball) in direction, from origin
+signal cast_projectile(spell_class, direction : Vector2, origin : Vector2)
+
 func get_l_stick_axis_vec() -> Vector2:
 	return Vector2(
 		Input.get_joy_axis(0, JOY_AXIS_LEFT_X), 
@@ -164,6 +170,9 @@ func _physics_process(delta):
 	# Apply 2d physics engine's movement 
 	move_and_slide()
 
+# Spawn a fireball every 100ms if Fireball button is held
 func _on_fireball_interval_timer_timeout():
 	if movement_state == MovementState.CASTING:
-		print("pow!")
+		# Signal that a fireball should be cast at casting angle and 
+		# from Player's position
+		cast_projectile.emit(Fireball, cast_angle, position)
