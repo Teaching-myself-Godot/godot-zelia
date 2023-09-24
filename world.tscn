@@ -156,3 +156,4 @@ layer_0/tile_data = PackedInt32Array(524296, 262144, 2, 458760, 65536, 65537, 39
 position = Vector2(133, 44)
 
 [node name="Fireball" parent="." instance=ExtResource("3_5atjg")]
+visible = false
