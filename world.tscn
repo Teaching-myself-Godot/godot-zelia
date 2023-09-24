@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://7ccsjx3fean8"]
+[gd_scene load_steps=6 format=3 uid="uid://7ccsjx3fean8"]
 
 [ext_resource type="Texture2D" uid="uid://cd163dlcpxdpl" path="res://surface_maps/grass-and-dirt/1.png" id="1_4u2ns"]
 [ext_resource type="PackedScene" uid="uid://bu64mps4ovkil" path="res://player/player.tscn" id="2_y13bk"]
+[ext_resource type="PackedScene" uid="uid://dcgkj8bxgw1e3" path="res://projectiles/fireball/fireball.tscn" id="3_5atjg"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plf1x"]
 resource_name = "grass-and-dirt"
@@ -153,3 +154,5 @@ layer_0/tile_data = PackedInt32Array(524296, 262144, 2, 458760, 65536, 65537, 39
 
 [node name="Player" parent="." instance=ExtResource("2_y13bk")]
 position = Vector2(133, 44)
+
+[node name="Fireball" parent="." instance=ExtResource("3_5atjg")]
