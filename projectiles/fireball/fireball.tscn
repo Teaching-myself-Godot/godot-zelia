@@ -18,17 +18,18 @@ animations = [{
 radius = 3.0
 
 [node name="Fireball" type="Area2D"]
+position = Vector2(-2, 0)
 script = ExtResource("1_gp71n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(17, 9)
 sprite_frames = SubResource("SpriteFrames_ut8ip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(19, 9)
+position = Vector2(2, 0)
 shape = SubResource("CircleShape2D_bba0g")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(19, 9)
+position = Vector2(1, -1)
+metadata/_edit_group_ = true
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
