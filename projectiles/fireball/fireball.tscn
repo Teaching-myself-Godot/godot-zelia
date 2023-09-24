@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://dcgkj8bxgw1e3"]
+
+[ext_resource type="Texture2D" uid="uid://bivwfg2dw2d05" path="res://projectiles/fireball/fireball.png" id="1_vsxuv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ut8ip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_vsxuv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_bba0g"]
+radius = 3.0
+
+[node name="Fireball" type="Area2D"]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(17, 9)
+sprite_frames = SubResource("SpriteFrames_ut8ip")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(19, 9)
+shape = SubResource("CircleShape2D_bba0g")
