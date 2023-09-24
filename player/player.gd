@@ -111,8 +111,8 @@ func handle_movement_state():
 func get_casting_sprite(deg) -> String:
 	var casting_left  = (deg > 120 and deg < 180) or (deg > -180 and deg < -120)
 	var casting_right = deg > -60  and deg < 60
-	var casting_up    = deg > -140 and deg < -20
-	var casting_down  = deg > 30   and deg < 150
+	var casting_up    = deg > -160 and deg < 0
+	var casting_down  = deg > 30   and deg < 160
 
 	if casting_up and (casting_right or casting_left):
 		return "casting_diag_up"
@@ -174,5 +174,6 @@ func _physics_process(delta):
 func _on_fireball_interval_timer_timeout():
 	if movement_state == MovementState.CASTING:
 		# Signal that a fireball should be cast at casting angle and 
-		# from Player's position
-		cast_projectile.emit(Fireball, cast_angle, position)
+		# from Player's hands
+		var origin = position + Vector2(20, 0).rotated(cast_angle) + Vector2(0, 2)
+		cast_projectile.emit(Fireball, cast_angle, origin)
