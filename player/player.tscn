@@ -84,7 +84,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"dying",
-"speed": 15.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -150,7 +150,7 @@ script = ExtResource("1_tyhnt")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_fpknj")
-animation = &"casting_up"
+animation = &"dying"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_kk1m4")
@@ -164,4 +164,9 @@ stream = ExtResource("22_t6trb")
 wait_time = 0.1
 autostart = true
 
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
 [connection signal="timeout" from="FireballIntervalTimer" to="." method="_on_fireball_interval_timer_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]

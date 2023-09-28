@@ -3,8 +3,12 @@ extends Node
 var fireball = preload("res://projectiles/fireball/fireball.png").get_image()
 var fireball_dissipate : Array = []
 
+var green_slime = preload("res://monsters/slime/green/5.png").get_image()
+var green_slime_dissipate : Array = []
+
 func _ready():
 	fireball_dissipate = get_dissipate_renditions(fireball, 15, 1, 0.5)
+	green_slime_dissipate = get_dissipate_renditions(green_slime, 10, 2, 0.9)
 
 # Return a list of dissipating image renditions as an ImageTexture-Array
 # - src_rendition is the original Image

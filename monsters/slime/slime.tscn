@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://1rrf5ex0tp8h"]
+
+[ext_resource type="Script" path="res://monsters/slime/slime.gd" id="1_1h4q1"]
+[ext_resource type="Texture2D" uid="uid://be4d5s5y5r612" path="res://monsters/slime/green/5.png" id="1_pw1eo"]
+[ext_resource type="Texture2D" uid="uid://8hhoky2nkmiv" path="res://monsters/slime/green/1.png" id="2_oqjmn"]
+[ext_resource type="Texture2D" uid="uid://6mrp55evxx4s" path="res://monsters/slime/green/2.png" id="3_nkme1"]
+[ext_resource type="Texture2D" uid="uid://cgb5bhapvffl7" path="res://monsters/slime/green/3.png" id="4_e154i"]
+[ext_resource type="Texture2D" uid="uid://dvo7f5cjeaoi5" path="res://monsters/slime/green/4.png" id="5_lirh3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uf1k4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_pw1eo")
+}],
+"loop": true,
+"name": &"airborne",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oqjmn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_nkme1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e154i")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_lirh3")
+}],
+"loop": true,
+"name": &"floor_bounce",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qhwf3"]
+radius = 7.0
+height = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u4b12"]
+radius = 8.06226
+
+[node name="Slime" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_1h4q1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_uf1k4")
+animation = &"airborne"
+
+[node name="FloorBounceCollisionShape" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qhwf3")
+
+[node name="AirborneCollisionShape" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_u4b12")
+
+[node name="FloorBounceTimer" type="Timer" parent="."]
+wait_time = 0.533
+one_shot = true
+
+[node name="DissipateTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="FloorBounceTimer" to="." method="_on_floor_bounce_timer_timeout"]
+[connection signal="timeout" from="DissipateTimer" to="." method="_on_dissipate_timer_timeout"]

@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 enum Orientation   { LEFT, RIGHT }
-enum MovementState { IDLE, RUNNING, AIRBORNE, CASTING }
+enum MovementState { IDLE, RUNNING, AIRBORNE, CASTING, FAINTED }
 
 # I removed the exports for now, no debugging needed at the moment
 var movement_state : int
@@ -16,6 +16,8 @@ var gravity    = ProjectSettings.get_setting("physics/2d/default_gravity")
 var speed      = 120.0
 # Funnily the original game had jump_speed set to -4.0 and gravity to 13.0
 var jump_speed = -400.0
+
+var hp = 10.0
 
 # Preload the Fireball class, used to identify it in cast_projectile
 var Fireball = preload("res://projectiles/fireball/fireball.tscn")
@@ -42,7 +44,9 @@ func set_cast_angle():
 
 # Set initial movement state
 func set_movement_state():
-	if Input.is_action_pressed("Fireball button"):
+	if movement_state == MovementState.FAINTED:
+		velocity = Vector2(0,0)
+	elif Input.is_action_pressed("Fireball button"):
 		movement_state = MovementState.CASTING
 		set_cast_angle()
 	elif is_on_floor():
@@ -91,6 +95,16 @@ func handle_running():
 		velocity.x = 0
 		movement_state = MovementState.IDLE  
 
+func take_damage(damage : float):
+	if hp > 0:
+		hp -= damage
+	if hp <= 0:
+		movement_state = MovementState.FAINTED
+		$CollisionShape2D.disabled = true
+		$RespawnTimer.start()
+
+
+
 func handle_jumping():
 	# Handle Jump, only when on the floor
 	if Input.is_action_just_pressed("Jump") and is_on_floor():
@@ -99,7 +113,9 @@ func handle_jumping():
 		velocity.y = jump_speed
 
 func handle_movement_state():
-	if movement_state == MovementState.CASTING:
+	if movement_state == MovementState.FAINTED:
+		pass
+	elif movement_state == MovementState.CASTING:
 		handle_casting()
 	elif movement_state == MovementState.AIRBORNE:
 		handle_airborne()
@@ -136,6 +152,8 @@ func set_current_sprite():
 		MovementState.CASTING:
 			# when casting invoge get_casting_sprite
 			$AnimatedSprite2D.animation = get_casting_sprite(rad_to_deg(cast_angle))
+		MovementState.FAINTED:
+			$AnimatedSprite2D.animation = "dying"
 		_: # MovementState.IDLE
 			$AnimatedSprite2D.animation = "idle"
 
@@ -151,6 +169,7 @@ func _ready():
 	movement_state = MovementState.IDLE
 	orientation    = Orientation.RIGHT
 	$AnimatedSprite2D.play()
+	PlayerState.respawn_point = position
 
 # Changed _process to _physics_process
 func _physics_process(delta):
@@ -170,6 +189,9 @@ func _physics_process(delta):
 	# Apply 2d physics engine's movement 
 	move_and_slide()
 
+func _process(delta):
+	PlayerState.position = position
+
 # Spawn a fireball every 100ms if Fireball button is held
 func _on_fireball_interval_timer_timeout():
 	if movement_state == MovementState.CASTING:
@@ -177,3 +199,10 @@ func _on_fireball_interval_timer_timeout():
 		# from Player's hands
 		var origin = position + Vector2(20, 0).rotated(cast_angle) + Vector2(0, 2)
 		cast_projectile.emit(Fireball, cast_angle, origin)
+
+
+func _on_respawn_timer_timeout():
+	position = PlayerState.respawn_point
+	hp = 10
+	$CollisionShape2D.disabled = false
+	movement_state = MovementState.IDLE
