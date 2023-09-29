@@ -6,12 +6,15 @@ extends Area2D
 func _ready():
 	# Start playing the "default" animation
 	$AnimatedSprite2D.play("default")
-	# Add a new animation to the SpriteFrames instance of the $AnimatedSprite2D node
-	$AnimatedSprite2D.sprite_frames.add_animation("dissipate")
-	# Loop through all rendition images in the global singleton fireball_dissipate
-	for rendition in TextureRenditions.fireball_dissipate:
-		# Add them as a frame to 
-		$AnimatedSprite2D.sprite_frames.add_frame("dissipate", rendition)
+	# The sprite_frames of $AnimatedSprite2D is a singleton, so after calling 
+	# add_animation one time, it exists for all other instances
+	if "dissipate" not in $AnimatedSprite2D.sprite_frames.get_animation_names():
+		# Add a new animation to the SpriteFrames instance of the $AnimatedSprite2D node
+		$AnimatedSprite2D.sprite_frames.add_animation("dissipate")
+		# Loop through all rendition images in the global singleton fireball_dissipate
+		for rendition in TextureRenditions.fireball_dissipate:
+			# Add them as a frame to 
+			$AnimatedSprite2D.sprite_frames.add_frame("dissipate", rendition)
 
 func _physics_process(delta):
 	# Update position by velocity-vector
@@ -20,7 +23,7 @@ func _physics_process(delta):
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	# play the dissipate animation we coded
 	$AnimatedSprite2D.play("dissipate")
 	# start the new timer in stead of calling queue_free here
