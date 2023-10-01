@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://mh0mr1855afv"
-path="res://.godot/imported/1.png-df92962f02157e09c1ac28adad91df8c.ctex"
+path="res://.godot/imported/1.png-4c8c5d887a04d1c5830c4ac91da57367.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://surface_maps/cactus/1.png"
-dest_files=["res://.godot/imported/1.png-df92962f02157e09c1ac28adad91df8c.ctex"]
+source_file="res://terrains/cactus/1.png"
+dest_files=["res://.godot/imported/1.png-4c8c5d887a04d1c5830c4ac91da57367.ctex"]
 
 [params]
 

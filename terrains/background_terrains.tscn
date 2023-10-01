@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://c2cougq61862r"]
+
+[ext_resource type="Shader" path="res://terrains/background_terrains.gdshader" id="1_drvhs"]
+[ext_resource type="TileSet" uid="uid://pqxbyy826ogw" path="res://terrains/background_terrains.tres" id="2_jxp6f"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pskpj"]
+shader = ExtResource("1_drvhs")
+
+[node name="BackgroundTerrains" type="TileMap"]
+material = SubResource("ShaderMaterial_pskpj")
+tile_set = ExtResource("2_jxp6f")
+cell_quadrant_size = 15
+format = 2

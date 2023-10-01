@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvvgtd4jcdy3x"
-path="res://.godot/imported/1.png-85509d5eb2e73ea27984ed97b84b017a.ctex"
+uid="uid://2j4y37j868qw"
+path="res://.godot/imported/1.png-2717a91e013a388d74a0b21baf9ae938.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://surface_maps/brick-face/1.png"
-dest_files=["res://.godot/imported/1.png-85509d5eb2e73ea27984ed97b84b017a.ctex"]
+source_file="res://terrains/big-brick/1.png"
+dest_files=["res://.godot/imported/1.png-2717a91e013a388d74a0b21baf9ae938.ctex"]
 
 [params]
 

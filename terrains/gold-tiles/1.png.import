@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://xmq8afli4ryt"
-path="res://.godot/imported/1.png-cd148f9580ad6799a04877492d4ded44.ctex"
+uid="uid://chqs76pbj3qbo"
+path="res://.godot/imported/1.png-8c9d25b4028c0b99946e2764077aae7b.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://surface_maps/mossy-bricks/1.png"
-dest_files=["res://.godot/imported/1.png-cd148f9580ad6799a04877492d4ded44.ctex"]
+source_file="res://terrains/gold-tiles/1.png"
+dest_files=["res://.godot/imported/1.png-8c9d25b4028c0b99946e2764077aae7b.ctex"]
 
 [params]
 

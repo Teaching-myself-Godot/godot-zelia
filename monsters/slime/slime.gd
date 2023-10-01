@@ -7,13 +7,16 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var movement_state : int
 var hp = 10
 var damage = 1
+
 func _ready():
 	movement_state = MovementState.AIRBORNE
-	$AnimatedSprite2D.sprite_frames.add_animation("dissipate")
-	# Loop through all rendition images in the global singleton fireball_dissipate
-	for rendition in TextureRenditions.green_slime_dissipate:
-		# Add them as a frame to 
-		$AnimatedSprite2D.sprite_frames.add_frame("dissipate", rendition)
+	
+	if "dissipate" not in $AnimatedSprite2D.sprite_frames.get_animation_names():
+		$AnimatedSprite2D.sprite_frames.add_animation("dissipate")
+		# Loop through all rendition images in the global singleton fireball_dissipate
+		for rendition in TextureRenditions.green_slime_dissipate:
+			# Add them as a frame to 
+			$AnimatedSprite2D.sprite_frames.add_frame("dissipate", rendition)
 	
 	$AnimatedSprite2D.animation = "airborne"
 	$AnimatedSprite2D.play()
@@ -60,8 +63,8 @@ func _physics_process(delta):
 	
 	move_and_slide()
 
-func take_damage(damage : int):
-	hp -= damage
+func take_damage(dmg: int):
+	hp -= dmg
 	if hp <= 0:
 		movement_state = MovementState.DYING
 		$DissipateTimer.start()

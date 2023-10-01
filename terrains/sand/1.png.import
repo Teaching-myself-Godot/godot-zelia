@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bs2oogwdwj73j"
-path="res://.godot/imported/1.png-a8c5166a9f8737f6a4f576a9180ecc6a.ctex"
+uid="uid://vsur3x8d7ypm"
+path="res://.godot/imported/1.png-03603b75c35a8746caf467356d560554.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://surface_maps/tree-trunk/1.png"
-dest_files=["res://.godot/imported/1.png-a8c5166a9f8737f6a4f576a9180ecc6a.ctex"]
+source_file="res://terrains/sand/1.png"
+dest_files=["res://.godot/imported/1.png-03603b75c35a8746caf467356d560554.ctex"]
 
 [params]
 

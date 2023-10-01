@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1bem3hrbt5do"
-path="res://.godot/imported/1.png-0af782c1d0baa4d8338e719d445752a6.ctex"
+uid="uid://bs2oogwdwj73j"
+path="res://.godot/imported/1.png-301fc7e17a4d4163ad9d52298aef587f.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://surface_maps/stonewall/1.png"
-dest_files=["res://.godot/imported/1.png-0af782c1d0baa4d8338e719d445752a6.ctex"]
+source_file="res://terrains/tree-trunk/1.png"
+dest_files=["res://.godot/imported/1.png-301fc7e17a4d4163ad9d52298aef587f.ctex"]
 
 [params]
 

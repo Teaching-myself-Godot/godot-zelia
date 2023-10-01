@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://2j4y37j868qw"
-path="res://.godot/imported/1.png-6ac32539bad555b7867c36cca97bfdbf.ctex"
+uid="uid://b1bem3hrbt5do"
+path="res://.godot/imported/1.png-1c7246e186b2efe134ff1bd844f5c3df.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://surface_maps/big-brick/1.png"
-dest_files=["res://.godot/imported/1.png-6ac32539bad555b7867c36cca97bfdbf.ctex"]
+source_file="res://terrains/stonewall/1.png"
+dest_files=["res://.godot/imported/1.png-1c7246e186b2efe134ff1bd844f5c3df.ctex"]
 
 [params]
 

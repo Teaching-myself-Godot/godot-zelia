@@ -189,7 +189,7 @@ func _physics_process(delta):
 	# Apply 2d physics engine's movement 
 	move_and_slide()
 
-func _process(delta):
+func _process(_delta):
 	PlayerState.position = position
 
 # Spawn a fireball every 100ms if Fireball button is held
@@ -197,7 +197,7 @@ func _on_fireball_interval_timer_timeout():
 	if movement_state == MovementState.CASTING:
 		# Signal that a fireball should be cast at casting angle and 
 		# from Player's hands
-		var origin = position + Vector2(20, 0).rotated(cast_angle) + Vector2(0, 2)
+		var origin = position + Vector2(14, 0).rotated(cast_angle) + Vector2(0, 2)
 		cast_projectile.emit(Fireball, cast_angle, origin)
 
 
