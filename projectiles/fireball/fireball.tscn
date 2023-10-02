@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://k5ricjoj0tka"]
+[gd_scene load_steps=6 format=3 uid="uid://k5ricjoj0tka"]
 
 [ext_resource type="Script" path="res://projectiles/fireball/fireball.gd" id="1_gp71n"]
 [ext_resource type="Texture2D" uid="uid://bivwfg2dw2d05" path="res://projectiles/fireball/fireball.png" id="1_vsxuv"]
@@ -17,6 +17,8 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_bba0g"]
 radius = 3.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_unjjn"]
+
 [node name="Fireball" type="Area2D"]
 show_behind_parent = true
 position = Vector2(-2, 0)
@@ -25,6 +27,7 @@ collision_mask = 2
 script = ExtResource("1_gp71n")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
 sprite_frames = SubResource("SpriteFrames_ut8ip")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -36,8 +39,11 @@ position = Vector2(1, -1)
 metadata/_edit_group_ = true
 
 [node name="DissipateTimer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
+wait_time = 0.06
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_unjjn")
+texture = ExtResource("1_vsxuv")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
