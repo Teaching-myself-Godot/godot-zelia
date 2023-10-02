@@ -6,7 +6,7 @@ const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var movement_state : int
 var hp = 10
-var damage = 1
+var damage = 0.3
 
 func _ready():
 	movement_state = MovementState.AIRBORNE
@@ -57,7 +57,7 @@ func _physics_process(delta):
 
 	for i in get_slide_collision_count():
 		var collider = get_slide_collision(i).get_collider()
-		if collider.name == "Player":
+		if collider and collider.name == "Player":
 			start_jump(-150)
 			collider.take_damage(damage)
 	

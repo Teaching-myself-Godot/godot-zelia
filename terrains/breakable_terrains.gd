@@ -1,6 +1,6 @@
 extends TileMap
 
-
+signal add_breakable_tile(position: Vector2, texture : Texture2D, atlas_coords : Vector2i, hp : int, falls_down : bool)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	visible = false
@@ -8,8 +8,4 @@ func _ready():
 		var source_id = get_cell_source_id(0, tile)
 		var tileset_source = tile_set.get_source(source_id)
 		var tile_atlas_coords = get_cell_atlas_coords(0, tile)
-		print(tile)
-		print(tileset_source.texture)
-		print(tile_atlas_coords)
-		print(get_meta("hp"))
-
+		emit_signal("add_breakable_tile", tile * 15, tileset_source.texture, tile_atlas_coords, get_meta("hp"), get_meta("falls_down"))
