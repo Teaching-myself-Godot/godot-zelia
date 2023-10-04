@@ -98,6 +98,7 @@ func handle_running():
 func take_damage(damage : float):
 	if hp > 0:
 		hp -= damage
+
 	if hp <= 0:
 		movement_state = MovementState.FAINTED
 		$CollisionShape2D.disabled = true
