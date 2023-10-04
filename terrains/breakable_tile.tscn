@@ -11,11 +11,12 @@ position = Vector2(1, 1)
 collision_layer = 3
 collision_mask = 3
 script = ExtResource("1_hx667")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2(7, 7)
 shape = SubResource("RectangleShape2D_076g6")
+disabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(7, 7)
@@ -23,5 +24,10 @@ texture = ExtResource("1_krdfa")
 region_enabled = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(7, 7)
+metadata/_edit_group_ = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(7, 7)
 
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

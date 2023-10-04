@@ -20,9 +20,11 @@ func _on_player_cast_projectile(spell_class, direction, origin):
 	spell.velocity = Vector2.from_angle(direction) * 150.0
 
 
-func _on_breakable_terrains_add_breakable_tile(position, texture, atlas_coords, hp, falls_down):
+func _on_breakable_terrains_add_breakable_tile(
+	position, texture, atlas_coords, collisigon, hp, falls_down):
 	var breakable_tile = BreakableTile.instantiate()
 	breakable_tile.position = position
+	breakable_tile.collisigon = collisigon
 	breakable_tile.hp = hp
 	breakable_tile.texture = texture
 	breakable_tile.atlas_coords = atlas_coords
