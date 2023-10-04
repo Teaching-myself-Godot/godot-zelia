@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://1jbyqgw67s5g"]
+[gd_scene load_steps=2 format=3 uid="uid://1jbyqgw67s5g"]
 
 [ext_resource type="Script" path="res://terrains/breakable_tile.gd" id="1_hx667"]
-[ext_resource type="Texture2D" uid="uid://bgbdqs1p5nm32" path="res://terrains/placeholder.png" id="1_krdfa"]
 
 [node name="BreakableTile" type="StaticBody2D"]
 position = Vector2(1, 1)
@@ -11,7 +10,6 @@ script = ExtResource("1_hx667")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(7, 7)
-texture = ExtResource("1_krdfa")
 region_enabled = true
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]

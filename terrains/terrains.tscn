@@ -1,10 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://7ccsjx3fean8"]
 
 [ext_resource type="TileSet" uid="uid://blfjq3ffg2s85" path="res://terrains/terrains.tres" id="1_edesm"]
-[ext_resource type="Script" path="res://terrains.gd" id="2_6qx3r"]
+[ext_resource type="Script" path="res://terrains/breakable_terrains.gd" id="2_t4vql"]
 
 [node name="Terrains" type="TileMap"]
 tile_set = ExtResource("1_edesm")
 cell_quadrant_size = 15
 format = 2
-script = ExtResource("2_6qx3r")
+script = ExtResource("2_t4vql")
+metadata/breakable = false
+metadata/falls_down = false
+metadata/hp = 10
