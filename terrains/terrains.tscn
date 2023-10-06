@@ -11,3 +11,4 @@ script = ExtResource("2_t4vql")
 metadata/breakable = false
 metadata/falls_down = false
 metadata/hp = 10
+metadata/damage = 2

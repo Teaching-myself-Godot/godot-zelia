@@ -2,11 +2,11 @@ extends CharacterBody2D
 
 enum MovementState { AIRBORNE, FLOOR_BOUNCE, DYING }
 
-const JUMP_VELOCITY = -400.0
+@export var JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var movement_state : int
-var hp = 10
-var damage = 0.3
+@export var hp = 10
+@export var damage = 0.3
 
 func _ready():
 	movement_state = MovementState.AIRBORNE

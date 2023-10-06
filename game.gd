@@ -21,14 +21,15 @@ func _on_player_cast_projectile(spell_class, direction, origin):
 
 
 func _on_breakable_terrains_add_breakable_tile(
-	position, texture, atlas_coords, collisigon, hp, falls_down):
+	position, textures, atlas_coords, collisigon, hp, falls_down, damage):
 	var breakable_tile = BreakableTile.instantiate()
 	breakable_tile.position = position
 	breakable_tile.collisigon = collisigon
 	breakable_tile.hp = hp
-	breakable_tile.texture = texture
+	breakable_tile.textures = textures
 	breakable_tile.atlas_coords = atlas_coords
 	breakable_tile.falls_down = falls_down
+	breakable_tile.damage = damage
 	child_tiles.append(breakable_tile)
 
 

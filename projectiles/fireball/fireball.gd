@@ -6,6 +6,7 @@ extends Area2D
 var done = false
 
 func _ready():
+	name = "Fireball"
 	# Start playing the "default" animation
 	$AnimatedSprite2D.play("default")
 	
