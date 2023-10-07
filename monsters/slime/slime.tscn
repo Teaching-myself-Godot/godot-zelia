@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://6d4nnla3f1jq"]
+[gd_scene load_steps=10 format=3 uid="uid://6d4nnla3f1jq"]
 
 [ext_resource type="Texture2D" uid="uid://cngxgw47eg2xs" path="res://monsters/slime/green/5.png" id="1_iwquf"]
+[ext_resource type="Script" path="res://monsters/slime/slime.gd" id="1_vllyc"]
 [ext_resource type="Texture2D" uid="uid://bxnbkp5ba5nlc" path="res://monsters/slime/green/1.png" id="2_kj5dd"]
 [ext_resource type="Texture2D" uid="uid://tb0yuebqr0be" path="res://monsters/slime/green/2.png" id="3_ecotw"]
 [ext_resource type="Texture2D" uid="uid://3seuk31xcdy2" path="res://monsters/slime/green/3.png" id="4_n2ves"]
@@ -35,16 +36,18 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h3ri2"]
+radius = 9.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_aun82"]
 radius = 7.0
 height = 22.0
 
 [node name="Slime" type="CharacterBody2D"]
+script = ExtResource("1_vllyc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_1f1sg")
-animation = &"floor_bounce"
+animation = &"airborne"
 
 [node name="AirborneCollisionShape" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_h3ri2")
