@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 TextureRenditions="*res://texture_renditions.gd"
-ResizeHandler="res://resize_handler.gd"
 
 [display]
 

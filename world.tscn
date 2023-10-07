@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://7ccsjx3fean8"]
+[gd_scene load_steps=8 format=3 uid="uid://7ccsjx3fean8"]
 
 [ext_resource type="Texture2D" uid="uid://cd163dlcpxdpl" path="res://surface_maps/grass-and-dirt/1.png" id="1_4u2ns"]
 [ext_resource type="Script" path="res://world.gd" id="2_2uu0c"]
 [ext_resource type="PackedScene" uid="uid://bu64mps4ovkil" path="res://player/player.tscn" id="2_y13bk"]
 [ext_resource type="PackedScene" uid="uid://dcgkj8bxgw1e3" path="res://projectiles/fireball/fireball.tscn" id="3_5atjg"]
+[ext_resource type="PackedScene" uid="uid://6d4nnla3f1jq" path="res://monsters/slime/slime.tscn" id="5_qggun"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plf1x"]
 resource_name = "grass-and-dirt"
@@ -156,9 +157,12 @@ layer_0/tile_data = PackedInt32Array(524296, 262144, 2, 458760, 65536, 65537, 39
 script = ExtResource("2_2uu0c")
 
 [node name="Player" parent="." instance=ExtResource("2_y13bk")]
-position = Vector2(133, 44)
+position = Vector2(110, 44)
 
 [node name="Fireball" parent="." instance=ExtResource("3_5atjg")]
 visible = false
+
+[node name="Slime" parent="." instance=ExtResource("5_qggun")]
+position = Vector2(195, 43)
 
 [connection signal="cast_projectile" from="Player" to="." method="_on_player_cast_projectile"]
