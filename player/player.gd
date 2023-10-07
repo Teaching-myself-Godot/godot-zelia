@@ -157,6 +157,8 @@ func _physics_process(delta):
 	# Apply the gravity.
 	velocity.y += gravity * delta
 
+	if Input.is_action_just_pressed("Esc"):
+		get_tree().quit()
 	# Set, and handle movement state 
 	set_movement_state()
 	handle_movement_state()
