@@ -3,12 +3,16 @@ extends CharacterBody2D
 enum MovementState { AIRBORNE, FLOOR_BOUNCE }
 
 var movement_state : int
+var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 # We want the level designer to be able to modify stuff like this.
 @export var JUMP_VELOCITY = -400.0
 @export var X_VELOCITY = 100
+@export var hp = 10
 
-var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
+func take_damage(dmg : int):
+	hp -= dmg
+	print("Ouch! hp = " + str(hp))
 
 # enable the collision shape that matches the current movement state
 func pick_collision_shape_for_movement_state():

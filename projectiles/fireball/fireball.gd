@@ -2,6 +2,7 @@ extends Area2D
 
 # Initialize the fireball with zero speed (x = 0, y = 0)
 @export var velocity = Vector2.ZERO
+@export var damage = 1
 
 func _ready():
 	# Start playing the "default" animation
@@ -23,13 +24,16 @@ func _physics_process(delta):
 func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 
-func _on_body_entered(_body):
+func _on_body_entered(body):
 	# play the dissipate animation we coded
 	$AnimatedSprite2D.play("dissipate")
 	# start the new timer in stead of calling queue_free here
 	$DissipateTimer.start()
 	# slow it down to 1/10th the speed
 	velocity *= 0.1
+	# if the body _can_ take damage, give it _my_damage
+	if body.has_method("take_damage"):
+		body.take_damage(damage)
 
 func _on_dissipate_timer_timeout():
 	queue_free()
