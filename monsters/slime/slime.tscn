@@ -57,3 +57,9 @@ position = Vector2(0, 2)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_aun82")
 debug_color = Color(0.584314, 0.513726, 0.545098, 0.419608)
+
+[node name="FloorBounceTimer" type="Timer" parent="."]
+wait_time = 0.571
+one_shot = true
+
+[connection signal="timeout" from="FloorBounceTimer" to="." method="_on_floor_bounce_timer_timeout"]
