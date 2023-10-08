@@ -64,4 +64,7 @@ debug_color = Color(0.584314, 0.513726, 0.545098, 0.419608)
 wait_time = 0.571
 one_shot = true
 
+[node name="DissipateTimer" type="Timer" parent="."]
+
 [connection signal="timeout" from="FloorBounceTimer" to="." method="_on_floor_bounce_timer_timeout"]
+[connection signal="timeout" from="DissipateTimer" to="." method="_on_dissipate_timer_timeout"]
