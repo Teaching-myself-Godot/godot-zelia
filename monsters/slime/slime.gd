@@ -9,11 +9,14 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @export var JUMP_VELOCITY = -400.0
 @export var X_VELOCITY = 100
 @export var hp = 10
+@export var damage = 1
 
 func take_damage(dmg : int):
 	hp -= dmg
 	if hp <= 0:
 		movement_state = MovementState.DYING
+		$DissipateTimer.start()
+
 
 # enable the collision shape that matches the current movement state
 func pick_collision_shape_for_movement_state():
@@ -65,8 +68,9 @@ func follow_player():
 	else:
 		velocity.x = X_VELOCITY
 
-func start_jump():
-	velocity.y = JUMP_VELOCITY
+func start_jump(init_velocity = JUMP_VELOCITY):
+	$FloorBounceTimer.stop()
+	velocity.y = init_velocity
 	follow_player()
 
 func pick_sprite_for_movement_state():
@@ -78,6 +82,17 @@ func pick_sprite_for_movement_state():
 		MovementState.DYING:
 			$AnimatedSprite2D.animation = "dissipate"
 
+func damage_player():
+	# detect collisions based on collision count
+	for i in get_slide_collision_count():
+		# get current colliding other thing
+		var collider = get_slide_collision(i).get_collider()
+		# test if other thing is the Player
+		if collider.name == "Player":
+			# make the player take damage
+			collider.take_damage(damage)
+			start_jump(-150)
+
 func handle_movement_state():
 	if movement_state == MovementState.DYING:
 		velocity = Vector2(0, 0)
@@ -86,6 +101,9 @@ func handle_movement_state():
 
 	pick_collision_shape_for_movement_state()
 	pick_sprite_for_movement_state()
+	damage_player()
+
+
 
 func _physics_process(delta):
 	# Apply gravity
@@ -94,7 +112,6 @@ func _physics_process(delta):
 	set_movement_state()
 	handle_movement_state()
 
-	
 	move_and_slide()
 
 func _on_floor_bounce_timer_timeout():
@@ -102,4 +119,4 @@ func _on_floor_bounce_timer_timeout():
 
 
 func _on_dissipate_timer_timeout():
-	pass
+	queue_free()

@@ -175,6 +175,10 @@ func _physics_process(delta):
 func _process(_delta):
 	PlayerState.position = position
 
+func take_damage(damage : float):
+	# leave Zelia immortal for a while longer
+	pass
+
 # Spawn a fireball every 100ms if Fireball button is held
 func _on_fireball_interval_timer_timeout():
 	if movement_state == MovementState.CASTING:
