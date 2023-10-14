@@ -184,5 +184,5 @@ func _on_fireball_interval_timer_timeout():
 	if movement_state == MovementState.CASTING:
 		# Signal that a fireball should be cast at casting angle and 
 		# from Player's hands
-		var origin = position + Vector2(20, 0).rotated(cast_angle) + Vector2(0, 2)
+		var origin = position + Vector2(14, 0).rotated(cast_angle) + Vector2(0, 2)
 		cast_projectile.emit(Fireball, cast_angle, origin)
