@@ -287,3 +287,4 @@ sources/2 = SubResource("TileSetAtlasSource_h00me")
 tile_set = SubResource("TileSet_01qsw")
 cell_quadrant_size = 15
 format = 2
+metadata/breakable = false
