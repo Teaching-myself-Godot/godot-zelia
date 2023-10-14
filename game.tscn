@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://cdkl7towiorsp"]
+
+[ext_resource type="Script" path="res://game.gd" id="1_jeeol"]
+[ext_resource type="PackedScene" uid="uid://7ccsjx3fean8" path="res://terrains.tscn" id="2_jossf"]
+[ext_resource type="PackedScene" uid="uid://6d4nnla3f1jq" path="res://monsters/slime/slime.tscn" id="3_l6mds"]
+[ext_resource type="PackedScene" uid="uid://bu64mps4ovkil" path="res://player/player.tscn" id="4_t861h"]
+
+[node name="Game" type="Node"]
+script = ExtResource("1_jeeol")
+
+[node name="Terrains" parent="." instance=ExtResource("2_jossf")]
+
+[node name="Slime" parent="." instance=ExtResource("3_l6mds")]
+position = Vector2(114, 19)
+
+[node name="Player" parent="." instance=ExtResource("4_t861h")]
+position = Vector2(135, 81)
+
+[connection signal="cast_projectile" from="Player" to="." method="_on_player_cast_projectile"]

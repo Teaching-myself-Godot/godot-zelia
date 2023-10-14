@@ -175,7 +175,7 @@ func _physics_process(delta):
 func _process(_delta):
 	PlayerState.position = position
 
-func take_damage(damage : float):
+func take_damage(_damage):
 	# leave Zelia immortal for a while longer
 	pass
 
