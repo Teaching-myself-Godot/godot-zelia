@@ -9,7 +9,7 @@
 script = ExtResource("1_jeeol")
 
 [node name="BreakableTerrains" parent="." instance=ExtResource("2_jossf")]
-layer_0/tile_data = PackedInt32Array(131079, 262144, 1)
+layer_0/tile_data = PackedInt32Array(131079, 262144, 1, 196617, 327682, 0)
 metadata/breakable = true
 
 [node name="Terrains" parent="." instance=ExtResource("2_jossf")]
@@ -24,4 +24,5 @@ position = Vector2(118, 70)
 [node name="Slime2" parent="." instance=ExtResource("3_l6mds")]
 position = Vector2(271, 16)
 
+[connection signal="add_breakable_tile" from="BreakableTerrains" to="." method="_on_breakable_terrains_add_breakable_tile"]
 [connection signal="cast_projectile" from="Player" to="." method="_on_player_cast_projectile"]
