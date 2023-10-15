@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://7ccsjx3fean8"]
+[gd_scene load_steps=7 format=3 uid="uid://7ccsjx3fean8"]
 
 [ext_resource type="Texture2D" uid="uid://cd163dlcpxdpl" path="res://surface_maps/grass-and-dirt/1.png" id="1_b6r2r"]
 [ext_resource type="Texture2D" uid="uid://bs2oogwdwj73j" path="res://surface_maps/tree-trunk/1.png" id="2_kii2b"]
+[ext_resource type="Script" path="res://terrains.gd" id="3_e443u"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_plf1x"]
 resource_name = "grass-and-dirt"
@@ -287,4 +288,5 @@ sources/2 = SubResource("TileSetAtlasSource_h00me")
 tile_set = SubResource("TileSet_01qsw")
 cell_quadrant_size = 15
 format = 2
+script = ExtResource("3_e443u")
 metadata/breakable = false
