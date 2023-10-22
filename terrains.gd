@@ -24,3 +24,5 @@ func _ready():
 				tile_atlas_coords * tile_set.tile_size,
 				tile_data.get_collision_polygon_points(0, 0)
 			)
+		# Remove this TileMap from the parent scene
+		queue_free()

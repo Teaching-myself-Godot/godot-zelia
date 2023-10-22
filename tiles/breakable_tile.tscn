@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://uaypoj8qbq3r"]
+
+[ext_resource type="Texture2D" uid="uid://dyloou1e2j4lu" path="res://tiles/placeholder.png" id="1_fqoo5"]
+
+[node name="BreakableTile" type="StaticBody2D"]
+metadata/_edit_group_ = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7.5, 7.5)
+texture = ExtResource("1_fqoo5")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(7.5, 7.5)
