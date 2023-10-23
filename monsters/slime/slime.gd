@@ -88,7 +88,7 @@ func damage_player():
 		# get current colliding other thing
 		var collider = get_slide_collision(i).get_collider()
 		# test if other thing is the Player
-		if collider.name == "Player":
+		if collider and collider.name == "Player":
 			# make the player take damage
 			collider.take_damage(damage)
 			start_jump(-150)
