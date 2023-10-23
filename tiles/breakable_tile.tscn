@@ -1,13 +1,18 @@
-[gd_scene load_steps=2 format=3 uid="uid://uaypoj8qbq3r"]
+[gd_scene load_steps=3 format=3 uid="uid://uaypoj8qbq3r"]
 
 [ext_resource type="Texture2D" uid="uid://dyloou1e2j4lu" path="res://tiles/placeholder.png" id="1_fqoo5"]
+[ext_resource type="Script" path="res://tiles/breakable_tile.gd" id="1_sdlfy"]
 
 [node name="BreakableTile" type="StaticBody2D"]
+collision_layer = 3
+collision_mask = 3
+script = ExtResource("1_sdlfy")
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(7.5, 7.5)
 texture = ExtResource("1_fqoo5")
+region_enabled = true
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
 position = Vector2(7.5, 7.5)

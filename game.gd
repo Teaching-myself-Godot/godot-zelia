@@ -10,11 +10,15 @@ func _on_player_cast_projectile(spell_class, direction, origin):
 	spell.velocity = Vector2.from_angle(direction) * 150.0
 
 
-func _on_breakable_terrains_add_breakable_tile(target_pos, texture, texture_pos, collisigon):
-	var new_tile : StaticBody2D = BreakableTile.instantiate()
-	new_tile.position = target_pos
+func _on_breakable_terrains_add_breakable_tile(
+	target_pos  : Vector2,
+	texture     : Texture2D,
+	texture_pos : Vector2i,
+	collisigon  : PackedVector2Array
+):
+	var new_tile = BreakableTile.instantiate()
+	new_tile.position    = target_pos
+	new_tile.texture     = texture
+	new_tile.texture_pos = texture_pos
+	new_tile.collisigon  = collisigon
 	add_child.call_deferred(new_tile)
-	print("Target position of BreakableTile:   " + str(target_pos))
-	print("Atlas texture resource dir:         " + str(texture.resource_path))
-	print("Position of this tile in the atlas: " + str(texture_pos))
-	print("Collision polygon of this tile:     " + str(collisigon))
