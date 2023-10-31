@@ -1,6 +1,6 @@
 extends StaticBody2D
 
-@export var hp    : float = 10.0
+@export var hp          : float = 10.0
 @export var texture     : Texture2D
 @export var texture_pos : Vector2i
 @export var collisigon  : PackedVector2Array

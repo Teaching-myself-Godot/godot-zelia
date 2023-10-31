@@ -290,3 +290,4 @@ cell_quadrant_size = 15
 format = 2
 script = ExtResource("3_e443u")
 metadata/breakable = false
+metadata/hp = 10.0

@@ -14,11 +14,13 @@ func _on_breakable_terrains_add_breakable_tile(
 	target_pos  : Vector2,
 	texture     : Texture2D,
 	texture_pos : Vector2i,
-	collisigon  : PackedVector2Array
+	collisigon  : PackedVector2Array,
+	hp          : float
 ):
 	var new_tile = BreakableTile.instantiate()
 	new_tile.position    = target_pos
 	new_tile.texture     = texture
 	new_tile.texture_pos = texture_pos
 	new_tile.collisigon  = collisigon
+	new_tile.hp          = hp
 	add_child.call_deferred(new_tile)
