@@ -9,7 +9,7 @@
 script = ExtResource("1_jeeol")
 
 [node name="BreakableTerrains" parent="." instance=ExtResource("2_jossf")]
-layer_0/tile_data = PackedInt32Array(131079, 262144, 1, 196617, 327682, 0)
+layer_0/tile_data = PackedInt32Array(131079, 65536, 2, 196617, 327682, 0, 65544, 262144, 1, 65543, 65536, 0)
 metadata/breakable = true
 
 [node name="Terrains" parent="." instance=ExtResource("2_jossf")]
